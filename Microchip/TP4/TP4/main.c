@@ -64,19 +64,19 @@ ISR(USART_RX_vect){
 	// Si se presiona 'R' se alterna la transmision de datos
 	if((RX_Buffer == 'r')||(RX_Buffer == 'R')){ // Si se presiono una R y no se esta modificando otro color
 		active = 1; // Se activa la modificacion de color
-		CAct = 'R';
+		actual = 'R';
 		SerialPort_Send_String(msgR);   // Envío el mensaje de Bienvenida
 	}
 	// Si se presiona 'G' se alterna la transmision de datos
 	if((RX_Buffer == 'g')||(RX_Buffer == 'G')){ // Si se presiono una G
 		active = 1; // Se activa la modificacion de color
-		CAct = 'G';
+		actual = 'G';
 		SerialPort_Send_String(msgG);   // Envío el mensaje de Bienvenida
 	}
 	// Si se presiona 'B' se alterna la transmision de datos
 	if((RX_Buffer == 'b')||(RX_Buffer == 'B')){ // Si se presiono una B
 		active = 1; // Se activa la modificacion de color
-		CAct = 'B';
+		actual = 'B';
 		SerialPort_Send_String(msgB);   // Envío el mensaje de Bienvenida
 	}
 	RX_Buffer=0;
