@@ -36,7 +36,7 @@ void PWM_Init(){
 	// Prescaler clk/64
 	TCCR0B |= (1<<CS01)|(1<<CS00);
 	TCCR0B &= ~(1<<CS02);
-	// Comparador en el valor para la cuenta cada 0.5 ms
+	// Comparador en el valor para la cuenta cada 40 us
 	OCR0A = 10;
 	// Se habilita la interrupcion COMP A
 	TIMSK0 |= (1<<OCIE0A);

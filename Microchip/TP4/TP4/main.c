@@ -17,31 +17,28 @@ char msgG[] = "Modificando color verde\r\n";
 char msgB[] = "Modificando color azul\r\n";
 char msgF[] = "Fin de modificacion\r\n";
 
-uint8_t active = 0;
-uint8_t CAct;
+uint8_t active = 0; // Indica si se esta modificando un color
+uint8_t actual; // Color siendo modificado en el momento
 
 int main(void)
 {
 	uint8_t cant = 0;
-	RGB color;
 	
-	PWM_Init();
-	ADC_Init();
-	SerialPort_Init(BR9600); 		// Inicializo formato 8N1 y BAUDRATE = 9600bps
-	SerialPort_TX_Enable();			// Activo el Transmisor del Puerto Serie
-	SerialPort_RX_Enable();			// Activo el Receptor del Puerto Serie
-	SerialPort_Send_String(msg1);   // Envío el mensaje de Bienvenida
-	SerialPort_RX_Interrupt_Enable();	// Activo Interrupción de recepcion.
-	sei();
+	PWM_Init(); // Inicializacion de las funciones PWM para la intensidad del led
+	ADC_Init(); // Inicializacion del modulo ADC para la medida del potenciometro
 	
-	color.R = 0;
-	color.G = 0;
-	color.B = 0;
+	SerialPort_Init(BR9600); 		// Se inicializa el formato 8N1 y BAUDRATE = 9600bps
+	SerialPort_TX_Enable();			// Se activa el Transmisor del Puerto Serie
+	SerialPort_RX_Enable();			// Se activa el Receptor del Puerto Serie
+	SerialPort_Send_String(msg1);   // Se envía el mensaje de Bienvenida
+	SerialPort_RX_Interrupt_Enable();	// Se activa la Interrupción de recepcion.
+	sei(); // Se activan las interrupciones globales
+	
     while (1) 
     {
-		if (active){
-			cant = getCant();
-			switch (CAct){
+		if (active){  // Si se esta modificando un color
+			cant = getCant(); // Se recibe el valor del potenciometro
+			switch (actual){ // Se configura la intensidad del color correspondiente
 				case 'R':
 					SetCT_Red(cant);
 				break;
@@ -52,9 +49,6 @@ int main(void)
 					SetCT_Blue(cant);
 				break;
 			}
-// 
-// 			SerialPort_Send_uint8_t(cant);
-// 			SerialPort_Send_String("\r\n");
 		}
     }
 }
